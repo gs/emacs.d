@@ -10,6 +10,7 @@
 ;; Highlight current line.
 (global-hl-line-mode t)
 
+(setq custom-file "~/.emacs.d/garbage.el")
 ;; Use `command` as `meta` in macOS.
 (setq mac-command-modifier 'meta)
 ;; Make ESC quit prompts
@@ -144,31 +145,3 @@
 (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
 (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
 (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(flymake-css company-tabnine yasnippet-snippets yaml-mode use-package swiper-helm smart-yank smart-tab rjsx-mode rg restart-emacs py-autopep8 projectile-ripgrep parinfer noctilux-theme neotree lispy helm-rg helm-projectile flycheck-clojure evil-surround evil-org evil-magit evil-leader elpy doom-modeline command-log-mode clojure-snippets clj-refactor)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- 
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- 
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- 
