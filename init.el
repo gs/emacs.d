@@ -1,6 +1,5 @@
 (setq inhibit-startup-message t)
 
-(tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
 
 (menu-bar-mode -1)            ; Disable the menu bar
@@ -152,7 +151,12 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    '(flymake-css company-tabnine yasnippet-snippets yaml-mode use-package swiper-helm smart-yank smart-tab rjsx-mode rg restart-emacs py-autopep8 projectile-ripgrep parinfer noctilux-theme neotree lispy helm-rg helm-projectile flycheck-clojure evil-surround evil-org evil-magit evil-leader elpy doom-modeline command-log-mode clojure-snippets clj-refactor)))
-(custom-set-faces)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
