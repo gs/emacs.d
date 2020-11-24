@@ -110,7 +110,7 @@
 (yas-global-mode 1)
 (clj-refactor-mode 1)
 (global-flycheck-mode 1)
-(doom-modeline 1)
+(doom-modeline-mode 1)
 (global-evil-surround-mode t)
 (global-whitespace-mode)
 (recentf-mode 1)
