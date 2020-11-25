@@ -16,6 +16,9 @@
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+
+ (add-to-list 'custom-theme-load-path "themes/")
+
 ; Require and initialize `package`.
 (require 'package)
 (package-initialize)
@@ -43,9 +46,9 @@
 (setq use-package-always-ensure t)
 
 (use-package company
-  :bind (:map company-active-map
-         ("C-n" . company-select-next)
-         ("C-p" . company-select-previous))
+;;  :bind (:map company-active-map
+;;         ("C-n" . company-select-next)
+;;         ("C-p" . company-select-previous))
   :config
   (setq company-idle-delay 0.1)
   (global-company-mode t))
@@ -89,6 +92,7 @@
 (use-package flycheck-clojure)
 
 (load-theme 'noctilux t)
+(load-theme 'rubytapas t)
 
 (setq whitespace-line-column 80)
 (setq whitespace-style '(face tabs empty trailing lines-tail))
@@ -145,3 +149,20 @@
 (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
 (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
 (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+
+(defun bury-compile-buffer-if-successful (buffer string)
+ "Bury a compilation buffer if succeeded without warnings "
+ (when (and
+         (buffer-live-p buffer)
+         (string-match "compilation" (buffer-name buffer))
+         (string-match "finished" string)
+         (not
+          (with-current-buffer buffer
+            (goto-char (point-min))
+            (search-forward "warning" nil t))))
+    (run-with-timer 1 nil
+                    (lambda (buf)
+                      (bury-buffer buf)
+                      (switch-to-prev-buffer (get-buffer-window buf) 'kill))
+                    buffer)))
+(add-hook 'compilation-finish-functions 'bury-compile-buffer-if-successful)

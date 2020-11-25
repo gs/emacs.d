@@ -7,3 +7,5 @@ snippets
 transient
 *~
 garbage.el
+.python-environments/
+elpy/
