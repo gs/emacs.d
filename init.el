@@ -17,7 +17,7 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 
- (add-to-list 'custom-theme-load-path "themes/")
+ (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
 ; Require and initialize `package`.
 (require 'package)
