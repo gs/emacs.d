@@ -135,7 +135,7 @@
   "m" 'minimize-window
   "M" 'maximize-window
   "e" 'neotree-toggle
-  "s" 'swipe
+  "s" 'swiper
   "!" 'async-shell-command)
 
 ;;(define-key evil-normal-state-map (kbd "C-]") 'elpy-goto-definition)
@@ -166,3 +166,6 @@
                       (switch-to-prev-buffer (get-buffer-window buf) 'kill))
                     buffer)))
 (add-hook 'compilation-finish-functions 'bury-compile-buffer-if-successful)
+(put 'downcase-region 'disabled nil)
+
+(setq make-backup-files nil)
