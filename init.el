@@ -109,7 +109,7 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (projectile-global-mode)
 (global-evil-leader-mode)
-(parinfer-mode 1)
+(parinfer-mode-enable)
 (paredit-mode 1)
 (yas-global-mode 1)
 (clj-refactor-mode 1)
