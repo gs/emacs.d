@@ -169,3 +169,12 @@
 (put 'downcase-region 'disabled nil)
 
 (setq make-backup-files nil)
+;; tabnine completion support
+(require 'company-tabnine)
+(define-key global-map (kbd "C-l") #'company-tabnine)
+
+(company-tng-configure-default)
+(setq company-frontends
+      '(company-tng-frontend
+        company-pseudo-tooltip-frontend
+        company-echo-metadata-frontend))
