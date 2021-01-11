@@ -139,7 +139,7 @@
   "e" 'neotree-toggle
   "s" 'swiper
   "!" 'async-shell-command
-  "tab" 'org-cycle)
+  "TAB" 'org-cycle)
 
 ;;(define-key evil-normal-state-map (kbd "C-]") 'elpy-goto-definition)
 (define-key evil-normal-state-map (kbd ";") 'evil-ex)
