@@ -9,3 +9,5 @@ transient
 garbage.el
 .python-environments/
 elpy/
+ac-comphist.dat
+flychek*

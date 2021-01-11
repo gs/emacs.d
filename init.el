@@ -90,6 +90,8 @@
 (use-package flycheck)
 (use-package flycheck-pos-tip)
 (use-package flycheck-clojure)
+(use-package jedi)
+(use-package company-jedi)
 
 (load-theme 'noctilux t)
 (load-theme 'rubytapas t)
@@ -131,12 +133,13 @@
   "/" 'projectile-ripgrep
   "t" 'eshell
   "gg" 'magit-status
-  "gb" 'magit-blame
+  "gb" 'magit-blame-addition
   "m" 'minimize-window
   "M" 'maximize-window
   "e" 'neotree-toggle
   "s" 'swiper
-  "!" 'async-shell-command)
+  "!" 'async-shell-command
+  "tab" 'org-cycle)
 
 ;;(define-key evil-normal-state-map (kbd "C-]") 'elpy-goto-definition)
 (define-key evil-normal-state-map (kbd ";") 'evil-ex)
@@ -172,6 +175,7 @@
 ;; tabnine completion support
 (require 'company-tabnine)
 (define-key global-map (kbd "C-l") #'company-tabnine)
+(add-to-list 'company-backends #'company-tabnine)
 
 (company-tng-configure-default)
 (setq company-frontends
