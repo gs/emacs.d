@@ -92,11 +92,12 @@
 (use-package flycheck-clojure)
 (use-package jedi)
 (use-package company-jedi)
+(use-package auto-package-update)
 
 (load-theme 'noctilux t)
 (load-theme 'rubytapas t)
 
-(setq whitespace-line-column 80)
+;;(setq whitespace-line-column 80)
 (setq whitespace-style '(face tabs empty trailing lines-tail))
 (setq projectile-enable-caching t)
 (setq helm-autoresize-mode t)

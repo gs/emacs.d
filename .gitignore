@@ -11,3 +11,4 @@ garbage.el
 elpy/
 ac-comphist.dat
 flychek*
+.last-package-update-day
