@@ -53,12 +53,25 @@
   (setq company-idle-delay 0.1)
   (global-company-mode t))
 
+(setq evil-want-keybinding nil)
 (use-package command-log-mode)
 (use-package neotree)
 (use-package restart-emacs)
 (use-package evil-surround)
 (use-package py-autopep8)
-(use-package evil-magit)
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 (use-package evil-org)
 (use-package projectile-ripgrep)
 (use-package rg)
