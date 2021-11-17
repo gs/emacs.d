@@ -33,22 +33,10 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-;(package-initialize)
-;(unless package-archive-contents
-;  (package-refresh-contents))
-;;
-;
-;; Initialize use-package on non-Linux platforms
-;(unless (package-installed-p 'use-package)
-;   (package-install 'use-package))
-
 (require 'use-package)
 (setq use-package-always-ensure t)
 
 (use-package company
-;;  :bind (:map company-active-map
-;;         ("C-n" . company-select-next)
-;;         ("C-p" . company-select-previous))
   :config
   (setq company-idle-delay 0.1)
   (global-company-mode t))
@@ -90,19 +78,13 @@
 (use-package noctilux-theme)
 (use-package clojure-mode)
 (use-package clojure-snippets)
-(use-package parinfer)
-(use-package clj-refactor)
 (use-package lispy)
 (use-package paredit)
 (use-package smart-tab)
-(use-package smart-yank)
-(use-package clj-refactor)
 (use-package doom-modeline)
 (use-package company-tabnine)
-(use-package cider)
 (use-package flycheck)
 (use-package flycheck-pos-tip)
-(use-package flycheck-clojure)
 (use-package jedi)
 (use-package company-jedi)
 (use-package auto-package-update)
@@ -125,10 +107,8 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (projectile-global-mode)
 (global-evil-leader-mode)
-(parinfer-mode-enable)
 (paredit-mode 1)
 (yas-global-mode 1)
-(clj-refactor-mode 1)
 (global-flycheck-mode 1)
 (doom-modeline-mode 1)
 (global-evil-surround-mode t)
