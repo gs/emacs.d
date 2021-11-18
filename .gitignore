@@ -12,3 +12,5 @@ elpy/
 ac-comphist.dat
 flychek*
 .last-package-update-day
+flycheck_init.el
+parinfer-rust/

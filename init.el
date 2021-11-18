@@ -17,7 +17,7 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 
- (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
 ; Require and initialize `package`.
 (require 'package)
@@ -93,6 +93,11 @@
 (use-package clj-refactor)
 (use-package lispy)
 (use-package paredit)
+(use-package parinfer-rust-mode
+    :hook emacs-lisp-mode
+    :init
+;    (setq parinfer-rust-library "~/.emacs.d/parinfer-rust/parinfer-rust-darwin.so")
+    (setq parinfer-rust-auto-download t))
 (use-package smart-tab)
 (use-package smart-yank)
 (use-package clj-refactor)
