@@ -33,23 +33,11 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-;(package-initialize)
-;(unless package-archive-contents
-;  (package-refresh-contents))
-;;
-;
-;; Initialize use-package on non-Linux platforms
-;(unless (package-installed-p 'use-package)
-;   (package-install 'use-package))
-
 (require 'use-package)
 (setq use-package-always-ensure t)
 
 (use-package company
-;;  :bind (:map company-active-map
-;;         ("C-n" . company-select-next)
-;;         ("C-p" . company-select-previous))
-  :config
+ :config
   (setq company-idle-delay 0.1)
   (global-company-mode t))
 
@@ -59,19 +47,71 @@
 (use-package restart-emacs)
 (use-package evil-surround)
 (use-package py-autopep8)
+(use-package undo-fu)
 (use-package evil
-  :ensure t
-  :init
-  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
-  (setq evil-want-keybinding nil)
+  :init (setq evil-want-keybinding nil)
   :config
-  (evil-mode 1))
-
+  (evil-mode t)
+  (evil-set-undo-system 'undo-fu)
+  (setq evil-move-cursor-back nil
+        evil-move-beyond-eol t
+        evil-want-fine-undo t
+        evil-mode-line-format 'before
+        evil-normal-state-cursor '(box "orange")
+        evil-insert-state-cursor '(box "green")
+        evil-visual-state-cursor '(box "#F86155")
+        evil-emacs-state-cursor  '(box "purple"))
+  ;; Prevent evil-motion-state from shadowing previous/next sexp
+  (require 'evil-maps)
+  (define-key evil-motion-state-map "L" nil)
+  (define-key evil-motion-state-map "M" nil))
 (use-package evil-collection
-  :after evil
-  :ensure t
+  :after (evil)
   :config
-  (evil-collection-init))
+  (evil-collection-init)
+  ;; Stop changing how last-sexp works. Even though we have evil-move-beyond-eol
+  ;; set, this is still being added, and I can't figure out why. Resorting to
+  ;; this hack.
+  (cl-loop
+   for fun
+   in '(elisp--preceding-sexp cider-last-sexp pp-last-sexp)
+   do (advice-mapc (lambda (advice _props) (advice-remove fun advice)) fun)))
+(use-package evil-surround
+  :config (global-evil-surround-mode 1))
+(use-package which-key
+  :diminish which-key-mode
+  :config
+  (which-key-mode 1))
+(use-package winum
+  :config (winum-mode 1))
+(use-package smartparens
+  :init (require 'smartparens-config)
+  :diminish smartparens-mode
+  :hook (prog-mode . smartparens-mode))
+
+; We don't actually enable cleverparens, because most of their bindings we
+;; don't want, we install our own bindings for specific sexp movements
+(use-package evil-cleverparens
+  :after (evil smartparens))
+(use-package aggressive-indent
+  :diminish aggressive-indent-mode
+  :hook ((clojurex-mode
+          clojurescript-mode
+          clojurec-mode
+          clojure-mode
+          emacs-lisp-mode
+          lisp-data-mode)
+         . aggressive-indent-mode))
+(use-package rainbow-delimiters
+  :hook ((cider-repl-mode
+          clojurex-mode
+          clojurescript-mode
+          clojurec-mode
+          clojure-mode
+          emacs-lisp-mode
+          lisp-data-mode
+          inferior-emacs-lisp-mode)
+         . rainbow-delimiters-mode))
 (use-package evil-org)
 (use-package projectile-ripgrep)
 (use-package rg)
@@ -90,14 +130,10 @@
 (use-package noctilux-theme)
 (use-package clojure-mode)
 (use-package clojure-snippets)
+(use-package markdown-mode)
 (use-package clj-refactor)
 (use-package lispy)
 (use-package paredit)
-(use-package parinfer-rust-mode
-    :hook emacs-lisp-mode
-    :init
-;    (setq parinfer-rust-library "~/.emacs.d/parinfer-rust/parinfer-rust-darwin.so")
-    (setq parinfer-rust-auto-download t))
 (use-package smart-tab)
 (use-package smart-yank)
 (use-package clj-refactor)
@@ -134,10 +170,20 @@
 (clj-refactor-mode 1)
 (global-flycheck-mode 1)
 (doom-modeline-mode 1)
-(global-evil-surround-mode t)
 (global-whitespace-mode)
 (recentf-mode 1)
 
+;;(define-key evil-normal-state-map (kbd "C-]") 'elpy-goto-definition)
+(define-key evil-normal-state-map (kbd ";") 'evil-ex)
+(define-key evil-visual-state-map (kbd ";") 'evil-ex)
+(define-key evil-motion-state-map (kbd ";") 'evil-ex)
+(modify-syntax-entry ?_ "w")
+(modify-syntax-entry ?- "w")
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
+(evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
+(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
 
 (evil-leader/set-leader ",")
 ;; Special key mapings
@@ -157,18 +203,6 @@
   "s" 'swiper
   "!" 'async-shell-command
   "TAB" 'org-cycle)
-
-;;(define-key evil-normal-state-map (kbd "C-]") 'elpy-goto-definition)
-(define-key evil-normal-state-map (kbd ";") 'evil-ex)
-(define-key evil-visual-state-map (kbd ";") 'evil-ex)
-(define-key evil-motion-state-map (kbd ";") 'evil-ex)
-(modify-syntax-entry ?_ "w")
-(modify-syntax-entry ?- "w")
-(global-set-key (kbd "C-x k") 'kill-this-buffer)
-(evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
-(evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
-(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
-(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
 
 (defun bury-compile-buffer-if-successful (buffer string)
  "Bury a compilation buffer if succeeded without warnings "
@@ -193,9 +227,3 @@
 (require 'company-tabnine)
 (define-key global-map (kbd "C-l") #'company-tabnine)
 (add-to-list 'company-backends #'company-tabnine)
-
-(company-tng-configure-default)
-(setq company-frontends
-      '(company-tng-frontend
-        company-pseudo-tooltip-frontend
-        company-echo-metadata-frontend))
